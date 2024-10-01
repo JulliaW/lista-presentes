@@ -1,28 +1,49 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div class="presente-lista">
+        <PresenteItem
+            v-for="presente in presentesOrdenados"
+            :key="presente.id"
+            :presente="presente"
+            @comprar="marcarComoComprado"
+        />
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PresenteItem from "./components/PresenteItem.vue";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+    components: {
+        PresenteItem,
+    },
+    props: {
+        presentes: Array,
+    },
+    computed: {
+        presentesOrdenados() {
+            return [...this.presentes].sort((a, b) => a.comprado - b.comprado);
+        },
+    },
+    methods: {
+        marcarComoComprado(id) {
+            this.$emit("comprar", id);
+        },
+    },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+.presente-lista {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .presente-lista {
+        justify-content: center;
+    }
 }
 </style>
