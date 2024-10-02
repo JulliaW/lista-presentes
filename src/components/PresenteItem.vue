@@ -7,7 +7,7 @@
         <img :src="presente.imagem" @click="abrirLink(presente.link)" class="imagem-card" />
         <p class="titulo">{{ presente.nome }}</p>
         <button @click="marcarComoComprado" :disabled="presente.comprado" class="comprado-botao">
-            {{ presente.comprado ? "Comprado" : "Marcar como Comprado" }}
+            {{ presente.comprado ? "Já foi presenteado" : "Comprei para presentear" }}
         </button>
     </div>
 </template>
